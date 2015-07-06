@@ -1,0 +1,26 @@
+<ion-view view-title="Produtos">
+    <ion-content>
+        <p>t =  {{teste}}</p>
+        <ion-list>
+            <ion-item class="item-remove-animate item-icon-left item-icon-right" ng-repeat="produto in produtos"
+                      type="item-text-wrap" href="#/tab/cadastro-produto">
+                <i class="icon ion-email"></i>
+
+                <h2>id :{{produto.id}}</h2>
+                <h2>desc: {{produto.descricao}}</h2>
+
+                <p>valor :{{produto.valor}}</p>
+
+                <i class="icon ion-chevron-right icon-accessory"></i>
+
+                <ion-option-button class="button-assertive" ng-click="remove(produto)">
+                    Delete
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <div class="bar bar-footer">
+        <button class="button button-balanced" ng-click="cadastrarNovo()">Cadastrar</button>
+        <button class="button button-positive" ng-click="atualizarLista()">Atualizar</button>
+    </div>
+</ion-view>

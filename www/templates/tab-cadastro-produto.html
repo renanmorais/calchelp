@@ -1,0 +1,17 @@
+<ion-view view-title="Cadastro de Produtos">
+    <ion-content>
+        <div class="list">
+            <label class="item item-input">
+                <span class="input-label">Descrição:</span>
+                <input type="text" ng-model="produto.descricao">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Valor:</span>
+                <input type="number" ng-model="produto.valor">
+            </label>
+        </div>
+        <button class="button button-large button-balanced" ng-click="salvarProduto(produto)">Salvar</button>
+        <button class="button button-large button-positive" ng-click="novoProduto()">Novo</button>
+        <button class="button button-large button-dark" ng-click="voltarPesquisa()">Voltar</button>
+    </ion-content>
+</ion-view>

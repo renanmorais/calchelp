@@ -1,0 +1,32 @@
+<ion-view view-title="Calculadora">
+    <div class="list card">
+        <div class="item item-divider" align="center">RESULTADO</div>
+        <div class="item item-body">
+            <div>
+                <b> = {{resultado.valor}}</b>
+            </div>
+        </div>
+    </div>
+    <ion-content>
+        <ion-list>
+            <ion-item class="item-icon-left item-icon-right" ng-repeat="produto in produtos" type="item-text-wrap">
+                <div class="item-button-left">
+                    <button class="button button-balanced"><i class="ion-android-add-circle" ng-click="somaProduto(produto)"></i></button>
+                </div>
+                <div align="center">
+                    <h2>desc: {{produto.descricao}}</h2>
+
+                    <p>valor :{{produto.valor}}</p>
+                </div>
+                <div class="item-button-right">
+                    <button class="button button-assertive"><i class="ion-android-remove-circle" ng-click="subtraiProduto(produto)"></i></button>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <div class="bar bar-footer">
+        <button class="button button-balanced" ng-click="cadastrarNovo()">Cadastrar</button>
+        <button class="button button-black" ng-click="zeraResultado()">Zerar</button>
+        <button class="button button-positive" ng-click="atualizarLista()">Atualizar</button>
+    </div>
+</ion-view>
