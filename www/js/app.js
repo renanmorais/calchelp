@@ -28,8 +28,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             // Instantiate database file/connection after ionic platform is ready.
             //
             db = $cordovaSQLite.openDB("calchelp.db");
-            $cordovaSQLite.execute(db, 'DELETE TABLE IF NOT EXISTS Messages (id INTEGER PRIMARY KEY, message TEXT)');
-            $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS produtos (id INTEGER PRIMARY KEY, descricao TEXT, valor REAL, icon TEXT)');
+            $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS produtos (id INTEGER PRIMARY KEY, descricao TEXT, valor REAL, icon TEXT, qtd INTEGER)');
 
         });
     })

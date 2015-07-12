@@ -3,25 +3,29 @@
         <div class="list card">
             <div class="item item-divider" align="center">RESULTADO</div>
             <div class="item item-body">
-                <div>
-                    <b> = {{resultado.valor}}</b>
+                <div align="center">
+                    <b>{{resultado}}</b>
                 </div>
             </div>
         </div>
         <ion-list>
             <ion-item class="item-icon-left item-icon-right" ng-repeat="produto in produtos" type="item-text-wrap">
                 <div class="item-button-left">
-                    <button class="button button-balanced"><i class="ion-android-add-circle"
-                                                              ng-click="somaProduto(produto)"></i></button>
+                    <button  class="button button-large button-balanced"  ng-click="somaProduto(produto)">
+                        <i class="ion-android-add-circle"></i>
+                    </button >
                 </div>
                 <div align="center">
                     <h2>desc: {{produto.descricao}}</h2>
 
                     <p>valor :{{produto.valor}}</p>
+
+                    <p>qtd :{{produto.qtd}}</p>
                 </div>
                 <div class="item-button-right">
-                    <button class="button button-assertive"><i class="ion-android-remove-circle"
-                                                               ng-click="subtraiProduto(produto)"></i></button>
+                    <button  class="button button-large button-assertive" ng-click="subtraiProduto(produto)">
+                        <i class="ion-android-remove-circle"></i>
+                    </button >
                 </div>
             </ion-item>
         </ion-list>

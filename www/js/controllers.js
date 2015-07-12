@@ -93,12 +93,13 @@ angular.module('starter.controllers', [])
 
     .controller('CalculadoraController', function ($scope, $cordovaSQLite, $location) {
         $scope.produtos = [];
-        $scope.resultado = 200;
+        $scope.resultado = 0;
+
 
         $scope.getListaProdutos = function () {
             sql = 'SELECT * FROM produtos ORDER BY id DESC';
             $cordovaSQLite.execute(db, sql, []).then(function (res) {
-                    $scope.teste = res.rows.length;
+                   // $scope.teste = res.rows.length;
                     $scope.produtos = [];
                     if (res.rows.length > 0) {
                         for (var i = 0; i < res.rows.length; i++) {
@@ -106,7 +107,8 @@ angular.module('starter.controllers', [])
                                 id: res.rows.item(i).id,
                                 descricao: res.rows.item(i).descricao,
                                 valor: res.rows.item(i).valor,
-                                icon: res.rows.item(i).icon
+                                icon: res.rows.item(i).icon,
+                                qtd: res.rows.item(i).qtd
                             });
                         }
                     }
@@ -126,15 +128,40 @@ angular.module('starter.controllers', [])
         }
 
         $scope.somaProduto = function(produto){
-            $scope.resultado.valor = $scope.resultado.valor + produto.valor;
+            quantidade = produto.qtd + 1;
+            sql = 'UPDATE produtos set qtd = ? where id = ?'
+            $cordovaSQLite.execute(db, sql, [quantidade, produto.id])
+                .then(function (result) {
+                    $scope.atualizarLista();
+                }, function (error) {
+                    console.log("Error: " + error.message);
+                });
+            $scope.resultado = $scope.resultado + produto.valor;
         }
 
         $scope.subtraiProduto = function(produto){
-            $scope.resultado.valor = $scope.resultado.valor - produto.valor;
+            if($scope.resultado - produto.valor >= 0 && produto.qtd > 0){
+                quantidade = produto.qtd - 1;
+                sql = 'UPDATE produtos set qtd = ? where id = ?'
+                $cordovaSQLite.execute(db, sql, [quantidade, produto.id])
+                    .then(function (result) {
+                        $scope.atualizarLista();
+                    }, function (error) {
+                        console.log("Error: " + error.message);
+                    });
+                $scope.resultado = $scope.resultado - produto.valor;
+            }
         }
 
         $scope.zeraResultado = function(){
-            $scope.resultado = {};
+            $scope.resultado = 0;
+            sql = 'UPDATE produtos set qtd = 0'
+            $cordovaSQLite.execute(db, sql)
+                .then(function (result) {
+                    $scope.atualizarLista();
+                }, function (error) {
+                    console.log("Error: " + error.message);
+                });
         }
 
     })
