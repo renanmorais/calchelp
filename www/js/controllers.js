@@ -4,15 +4,18 @@ angular.module('starter.controllers', [])
 
         //função para salvar o produto no banco de dados.
         $scope.salvarProduto = function (produto) {
-            produto.icon = null;
-            sql = 'INSERT INTO produtos (descricao, valor, icon) VALUES (?,?,?)';
-            $cordovaSQLite.execute(db, sql, [produto.descricao, produto.valor, produto.icon])
-                .then(function (result) {
-                    $scope.produto = [];
-                    console.log("Registro salvo com sucesso")
-                }, function (error) {
-                    console.log("Error ao salvar: " + error.message);
-                })
+            if (produto.valor > 0 && produto.valor != undefined) {
+                produto.icon = null;
+                sql = 'INSERT INTO produtos (descricao, valor, icon) VALUES (?,?,?)';
+                $cordovaSQLite.execute(db, sql, [produto.descricao, produto.valor, produto.icon])
+                    .then(function (result) {
+                        $scope.produto = [];
+                        console.log("Registro salvo com sucesso")
+                    }, function (error) {
+                        console.log("Error ao salvar: " + error.message);
+                    })
+            }
+
         }
 
         $scope.novoProduto = function () {
@@ -35,16 +38,14 @@ angular.module('starter.controllers', [])
         }
     })
 
-    .controller('PesquisaProdutoController', function ($scope, $cordovaSQLite, $location) {
+    .controller('PesquisaProdutoController', function ($scope, $cordovaSQLite, $location, $rootScope) {
 
         $scope.produtos = [];
-        $scope.teste = {};
         //$scope.atualizarLista();
 
         $scope.getListaProdutos = function () {
             sql = 'SELECT * FROM produtos ORDER BY id DESC';
             $cordovaSQLite.execute(db, sql, []).then(function (res) {
-                    $scope.teste = res.rows.length;
                     $scope.produtos = [];
                     if (res.rows.length > 0) {
                         for (var i = 0; i < res.rows.length; i++) {
@@ -89,6 +90,11 @@ angular.module('starter.controllers', [])
                     console.log("Error ao excluir: " + error.message);
                 });
         }
+
+        $scope.editarProduto = function(produto){
+            $rootScope.produto = produto;
+            $location.path('/tab/cadastro-produto');
+        }
     })
 
     .controller('CalculadoraController', function ($scope, $cordovaSQLite, $location) {
@@ -99,7 +105,6 @@ angular.module('starter.controllers', [])
         $scope.getListaProdutos = function () {
             sql = 'SELECT * FROM produtos ORDER BY id DESC';
             $cordovaSQLite.execute(db, sql, []).then(function (res) {
-                   // $scope.teste = res.rows.length;
                     $scope.produtos = [];
                     if (res.rows.length > 0) {
                         for (var i = 0; i < res.rows.length; i++) {
@@ -123,11 +128,12 @@ angular.module('starter.controllers', [])
             $scope.getListaProdutos();
         }
 
+
         $scope.cadastrarNovo = function () {
             $location.path('/tab/cadastro-produto');
         }
 
-        $scope.somaProduto = function(produto){
+        $scope.somaProduto = function (produto) {
             quantidade = produto.qtd + 1;
             sql = 'UPDATE produtos set qtd = ? where id = ?'
             $cordovaSQLite.execute(db, sql, [quantidade, produto.id])
@@ -139,8 +145,8 @@ angular.module('starter.controllers', [])
             $scope.resultado = $scope.resultado + produto.valor;
         }
 
-        $scope.subtraiProduto = function(produto){
-            if($scope.resultado - produto.valor >= 0 && produto.qtd > 0){
+        $scope.subtraiProduto = function (produto) {
+            if ($scope.resultado - produto.valor >= 0 && produto.qtd > 0) {
                 quantidade = produto.qtd - 1;
                 sql = 'UPDATE produtos set qtd = ? where id = ?'
                 $cordovaSQLite.execute(db, sql, [quantidade, produto.id])
@@ -153,7 +159,7 @@ angular.module('starter.controllers', [])
             }
         }
 
-        $scope.zeraResultado = function(){
+        $scope.zeraResultado = function () {
             $scope.resultado = 0;
             sql = 'UPDATE produtos set qtd = 0'
             $cordovaSQLite.execute(db, sql)

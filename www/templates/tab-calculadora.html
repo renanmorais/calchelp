@@ -1,40 +1,40 @@
 <ion-view view-title="Calculadora">
     <ion-content>
-        <div class="list card">
-            <div class="item item-divider" align="center">RESULTADO</div>
-            <div class="item item-body">
-                <div align="center">
-                    <b>{{resultado}}</b>
+            <div class="card">
+                <div class="item item-divider" align="center">RESULTADO</div>
+                <div class="item item-text-wrap">
+                    <div align="center">
+                        <b>{{resultado}}</b>
+                    </div>
                 </div>
             </div>
-        </div>
+
         <ion-list>
             <ion-item class="item-icon-left item-icon-right" ng-repeat="produto in produtos" type="item-text-wrap">
                 <div class="item-button-left">
-                    <button  class="button button-large button-balanced"  ng-click="somaProduto(produto)">
+                    <button class="button button-large button-balanced" ng-click="somaProduto(produto)">
                         <i class="ion-android-add-circle"></i>
-                    </button >
+                        <br>
+                        <br>
+                    </button>
                 </div>
                 <div align="center">
-                    <h2>desc: {{produto.descricao}}</h2>
-
-                    <p>valor :{{produto.valor}}</p>
-
-                    <p>qtd :{{produto.qtd}}</p>
+                    <h2>{{produto.descricao}}</h2>
+                    <span>valor:{{produto.valor}}</span>
+                    <p style="align-content: center; color: red">{{produto.qtd}}</p>
                 </div>
                 <div class="item-button-right">
-                    <button  class="button button-large button-assertive" ng-click="subtraiProduto(produto)">
+                    <button class="button button-large button-assertive" ng-click="subtraiProduto(produto)">
                         <i class="ion-android-remove-circle"></i>
-                    </button >
+                        <br>
+                        <br>
+                    </button>
                 </div>
             </ion-item>
         </ion-list>
     </ion-content>
-    <div class="bar bar-footer">
-        <button class="button button-balanced" ng-click="cadastrarNovo()">Cadastrar</button>
-        <div align="center">
-            <button class="button button-black" ng-click="zeraResultado()">Zerar</button>
-        </div>
-        <button class="button button-positive" ng-click="atualizarLista()">Atualizar</button>
-    </div>
+    <ion-footer-bar class="bar-positive">
+        <button class="button button-balanced" ng-click="zeraResultado()">Reiniciar</button>
+        <button class="button button-energized" ng-click="atualizarLista()">Atualizar</button>
+    </ion-footer-bar>
 </ion-view>

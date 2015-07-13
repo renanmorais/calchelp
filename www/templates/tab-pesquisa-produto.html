@@ -1,15 +1,14 @@
-<ion-view view-title="Produtos">
+<ion-view view-title="Pesquisa de Produtos">
     <ion-content>
-        <p>t =  {{teste}}</p>
         <ion-list>
             <ion-item class="item-remove-animate item-icon-left item-icon-right" ng-repeat="produto in produtos"
                       type="item-text-wrap" href="#/tab/cadastro-produto">
                 <i class="icon ion-email"></i>
 
-                <h2>id :{{produto.id}}</h2>
+                <h2>id: {{produto.id}}</h2>
                 <h2>desc: {{produto.descricao}}</h2>
 
-                <p>valor :{{produto.valor}}</p>
+                <p>valor: {{produto.valor}}</p>
 
                 <i class="icon ion-chevron-right icon-accessory"></i>
 
@@ -19,8 +18,8 @@
             </ion-item>
         </ion-list>
     </ion-content>
-    <div class="bar bar-footer">
+    <ion-footer-bar class="bar-positive">
         <button class="button button-balanced" ng-click="cadastrarNovo()">Cadastrar</button>
-        <button class="button button-positive" ng-click="atualizarLista()">Atualizar</button>
-    </div>
+        <button class="button button-energized" ng-click="atualizarLista()">Atualizar</button>
+    </ion-footer-bar>
 </ion-view>
